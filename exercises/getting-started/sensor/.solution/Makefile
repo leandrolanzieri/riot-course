@@ -1,12 +1,12 @@
 APPLICATION=shell
 
-BOARD ?= b-l072z-lrwan1
+BOARD ?= pba-d-01-kw2x
 
 RIOTBASE ?= $(CURDIR)/../../../../RIOT
 
 USEMODULE += shell
 USEMODULE += shell_commands
 USEMODULE += ps
-USEMODULE += hts221
+USEMODULE += mpl3115a2
 
 include $(RIOTBASE)/Makefile.include

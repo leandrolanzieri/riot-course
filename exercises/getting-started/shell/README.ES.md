@@ -91,7 +91,7 @@ $ make all term
 5. Compilar y correr la aplicación. Verificar que el nuevo controlador se
    comporta como debe.
 
-6. Ahora volver a compilar la misma aplicación para la placa `b-l072z-lrwan1` y
+6. Ahora volver a compilar la misma aplicación para la placa `pba-d-01-kw2x` y
    correrla.
    _**Recordar:**_ si se utiliza un nodo en IoT-LAB, se necesita también
    especificar en el comando `make` la variable `IOTLAB_NODE` con el nombre del
@@ -101,4 +101,4 @@ $ make all term
 El comando se comporta de la misma manera en el hardware sin modificaciones :)
 
 Sigamos con
-[las diapositivas](https://riot-os.github.io/riot-course/slides/02-getting-started/#14).
+[las diapositivas](https://riot-course.lanzieri.dev/slides/02-getting-started/ES/#14).

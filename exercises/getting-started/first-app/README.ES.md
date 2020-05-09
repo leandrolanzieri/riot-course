@@ -44,36 +44,31 @@ My first RIOT application
 ### Compilar y correr la aplicación en un hardware específico
 
 En esta sección se compilará la misma aplicación, pero esta vez para la placa
-[ST B-L072Z-LRWAN1](https://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html).
+[phyWAVE-KW22](http://doc.riot-os.org/group__boards__pba-d-01-kw2x.html).
 
-El nombre clave de esta placa en RIOT es **b-l072z-lrwan1**.
+El nombre clave de esta placa en RIOT es **pba-d-01-kw2x**.
 
 1. Utilizar la variable `BOARD` para seleccionar la plataforma en tiempo de
    compilación.
 
 ```sh
-$ make BOARD=b-l072z-lrwan1
-Building application "first-app" for "b-l072z-lrwan1" with MCU "stm32l0".
+$ make BOARD=pba-d-01-kw2x
+Building application "first-app" for "pba-d-01-kw2x" with MCU "kinetis".
 
-"make" -C /home/user/RIOT/boards/b-l072z-lrwan1
-"make" -C /home/user/RIOT/core
-"make" -C /home/user/RIOT/cpu/stm32l0
-"make" -C /home/user/RIOT/cpu/cortexm_common
-"make" -C /home/user/RIOT/cpu/cortexm_common/periph
-"make" -C /home/user/RIOT/cpu/stm32_common
-"make" -C /home/user/RIOT/cpu/stm32_common/periph
-"make" -C /home/user/RIOT/cpu/stm32l0/periph
-"make" -C /home/user/RIOT/drivers
-"make" -C /home/user/RIOT/drivers/periph_common
-"make" -C /home/user/RIOT/sys
-"make" -C /home/user/RIOT/sys/auto_init
-"make" -C /home/user/RIOT/sys/isrpipe
-"make" -C /home/user/RIOT/sys/newlib_syscalls_default
-"make" -C /home/user/RIOT/sys/pm_layered
-"make" -C /home/user/RIOT/sys/tsrb
-"make" -C /home/user/RIOT/sys/uart_stdio
- text   data    bss    dec    hex filename
- 7596    140   2740  10476   28ec .../getting-started/first-app/bin/b-l072z-lrwan1/first-app.elf
+"make" -C /home/leandro/experiments/riot-course/RIOT/boards/pba-d-01-kw2x
+"make" -C /home/leandro/experiments/riot-course/RIOT/core
+"make" -C /home/leandro/experiments/riot-course/RIOT/cpu/kinetis
+"make" -C /home/leandro/experiments/riot-course/RIOT/cpu/cortexm_common
+"make" -C /home/leandro/experiments/riot-course/RIOT/cpu/cortexm_common/periph
+"make" -C /home/leandro/experiments/riot-course/RIOT/cpu/kinetis/periph
+"make" -C /home/leandro/experiments/riot-course/RIOT/drivers
+"make" -C /home/leandro/experiments/riot-course/RIOT/drivers/periph_common
+"make" -C /home/leandro/experiments/riot-course/RIOT/sys
+"make" -C /home/leandro/experiments/riot-course/RIOT/sys/auto_init
+"make" -C /home/leandro/experiments/riot-course/RIOT/sys/newlib_syscalls_default
+"make" -C /home/leandro/experiments/riot-course/RIOT/sys/stdio_uart
+   text	  data	   bss	   dec	   hex	filename
+   8192	   108	  2552	 10852	  2a64	..getting-started/first-app/bin/pba-d-01-kw2x/first-app.elf
 ```
 
 2. Verificar el tipo del binario generado. Es una aplicación binaria compilada
@@ -90,7 +85,7 @@ Building application "first-app" for "b-l072z-lrwan1" with MCU "stm32l0".
 
   - Utilizar el objetivo **term** para abrir la terminal serie en la placa:
   ```sh
-  $ make BOARD=b-l072z-lrwan1 term
+  $ make BOARD=pba-d-01-kw2x term
   ```
   **term** utiliza la herramienta `pyterm`por defecto para abrir la terminal
   serie. En el caso de IoT-LAB se abre un túnel SSH que redirige el puerto serie
@@ -99,7 +94,7 @@ Building application "first-app" for "b-l072z-lrwan1" with MCU "stm32l0".
 
   - **En otra terminal** utilizar el objetivo **flash** para programar la placa:
   ```sh
-  $ make BOARD=b-l072z-lrwan1 flash
+  $ make BOARD=pba-d-01-kw2x flash
   ```
   Ahora observar el mensaje que se muestra la aplicación de RIOT en la terminal
   serie.
@@ -108,7 +103,7 @@ Building application "first-app" for "b-l072z-lrwan1" with MCU "stm32l0".
   (OpenOCD o iotlab-node en el caso de IoT-LAB).
 
 ```sh
-$ make BOARD=b-l072z-lrwan1 flash term
+$ make BOARD=pba-d-01-kw2x flash term
 [...]
 ### Flashing Target ###
 Open On-Chip Debugger 0.10.0+dev-00290-g5a98ff78 (2018-01-31-14:50)
@@ -121,4 +116,4 @@ INFO # My first RIOT application
 ```
 
 Ahora, sigamos con
-[las diapositivas](https://riot-os.github.io/riot-course/slides/02-getting-started/#11).
+[las diapositivas](https://riot-course.lanzieri.dev/slides/02-getting-started/ES/#11).
