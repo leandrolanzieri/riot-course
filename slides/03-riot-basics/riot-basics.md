@@ -442,7 +442,7 @@ CPUs classification follows a hierarchical approach:
 - Each directory in `boards` creates a board module<br>
   &#x21d2; `BOARD=<board module name>`
 
-- MCU family and model used are defined in `Makefile.include`
+- MCU family and model used are defined in `Makefile.features`
 
 - The list of features provided (e.g MCU peripheral) is defined in `Makefile.features`
 
@@ -618,7 +618,7 @@ Follow the instructions of the
 
 - Built on top of peripheral APIs &#x21d2; ensures portability
 
-- Current design allows multiple drivers of the same type to be used:<br>
+- Current design allows multiple devices of the same type to be used:<br>
 
   &#x21d2; Concept of **device descriptors** containing runtime state
 
