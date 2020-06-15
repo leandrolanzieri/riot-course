@@ -218,7 +218,7 @@ Las funcionalidades son provistas como módulos &#x21d2; **sólo se compila lo q
 
 - **GNRC**: el stack 802.15.4/6LoWPAN/IPv6 propio de RIOT
 
-- **Thread**: Stack 802.15.4 IPv6 provisto por tl ThreadGroup
+- **Thread**: Stack 802.15.4 IPv6 provisto por el ThreadGroup
 
 .center[
     <img src="images/openthread-logo.png" alt="" style="width:200px"/>
@@ -247,9 +247,9 @@ Las funcionalidades son provistas como módulos &#x21d2; **sólo se compila lo q
 <img src="images/ble.png" alt="" style="width:180px;position:fixed;top:150px;right:100px"/>
 <br><br>
 
-- **LoRaWAN** stack
-&#x21d2; Compatible con LoRaWAN 1.0.2
-<img src="images/lorawan.png" alt="" style="width:200px;position:fixed;top:235px;right:100px"/>
+- GNRC **LoRaWAN** stack
+&#x21d2; Compatible con LoRaWAN 1.0.3
+<img src="images/lorawan.png" alt="" style="width:200px;position:fixed;top:235px;right:90px"/>
 <br><br>
 
 - Soporte de **SigFox** para los módulos ATA8520e
