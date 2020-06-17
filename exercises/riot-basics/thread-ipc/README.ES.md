@@ -33,13 +33,7 @@ Message received: Hello World
 
 #### Correr la aplicación en hardware
 
-- Probar la aplicación en la placa ST `b-l072z-lrwan1`:
+- Probar la aplicación en la placa ST:
 ```c
-$ make BOARD=b-l072z-lrwan1 -C ~/riot-course/exercices/riot-basics/thread-ipc flash term
+$ make BOARD=pba-d-01-kw2x -C ~/riot-course/exercices/riot-basics/thread-ipc flash term
 ```
-
-_Note:_ Si se utiliza hardware en FIT IoT-LAB, agregar `IOTLAB_NODE=auto-ssh` a
-        `make`.
-
-Ahora, continuemos con las
-[diapositivas de RIOT básico](https://riot-os.github.io/riot-course/slides/03-riot-basics/ES/#18).

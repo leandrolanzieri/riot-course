@@ -12,7 +12,7 @@ interrupción es utilizada para invertir el estado del LED presente en la placa.
 
 #### Escribir la aplicación
 
-**Nota:** Utilizar las macros predefinidas `BTN_B1_PIN` y `LED1_PIN` e incluir
+**Nota:** Utilizar las macros predefinidas `BTN0_PIN` y `LED0_PIN` e incluir
 `board.h`.
 
 - Agregar los 'features' de GPIO a los requerimientos de la aplicación (en el
@@ -43,10 +43,3 @@ FEATURES_REQUIRED += periph_gpio_irq
   controla el LED &#x21d2; invierte el estado de LED0.
 
 _Nota: por ahora se ignorará el problema del rebote del botón_
-
-_Nota: no conectar la placa de extensión X-NUCLEO-IKS01A2 dado que el botón en
-       la placa principal está conectado al traductor de nivel de la 
-       X-NUCLEO-IKS01A2, el cual afecta el estado del nivel del botón.
-
-Ahora, continuemos con las
-[diapositivas de RIOT básico](https://riot-os.github.io/riot-course/slides/03-riot-basics/ES/#28).

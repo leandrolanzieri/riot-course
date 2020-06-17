@@ -9,7 +9,7 @@ Cada LED parpadea de manera diferente:
 - _thread 2_ invierte el estado del LED1 cada 1 s
 - _thread 3_ invierte el estado del LED2 cada 2 s
 
-Por defecto, la aplicación puede correrse en la placa ST B-L072Z-LRWAN1, pero
+Por defecto, la aplicación puede correrse en la placa pba-d-01-kw2x, pero
 cualquier otra placa con por lo menos 3 LEDs podría utilizarse.
 
 ### Ejercicio
@@ -24,7 +24,3 @@ cualquier otra placa con por lo menos 3 LEDs podría utilizarse.
 - Repetir para LED1 y LED2.
 
 - Compilar y programar la aplicación, ¡y ver como parpadean los LEDs!
-
-Ahora, continuemos con las
-[diapositivas de RIOT básico](https://riot-os.github.io/riot-course/slides/03-riot-basics/ES/#22).
-

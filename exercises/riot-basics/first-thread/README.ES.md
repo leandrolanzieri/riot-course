@@ -88,12 +88,7 @@ while (1) {}
 
 #### Ejecutar en hardware
 
-- Probar la aplicación en la placa ST `b-l072z-lrwan1`:
+- Probar la aplicación en la placa:
 ```c
-$ make BOARD=b-l072z-lrwan1 -C ~/riot-course/exercices/riot-basics/first-thread flash term
+$ make BOARD=pba-d-01-kw2x -C ~/riot-course/exercices/riot-basics/first-thread flash term
 ```
-
-_Nota:_ Si se utiliza hardware en FIT IoT-LAB, agregar `IOTLAB_NODE=auto-ssh` a `make`.
-
-Ahora, sigamos con las
-[diapositivas de RIOT básico](https://riot-os.github.io/riot-course/slides/03-riot-basics/ES/#12).
