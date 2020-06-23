@@ -10,7 +10,12 @@ Ambas aplicaciones van a correr en instancias de RIOT `native`.
 
 ### Ejercicio
 
-1. Si aún no se hizo, configurar 2 interfaces tap para utilizar en las 2 instancias native. El servidor correrá en `tap0` y el cliente en `tap1`.
+1. Configurar 2 interfaces tap para utilizar en las 2 instancias native. El
+   servidor correrá en `tap0` y el cliente en `tap1`. Ejecutar
+
+  ```sh
+  $ sudo ~/riot-course/RIOT/dist/tools/tapsetup/tapsetup -c 2
+  ```
 
 2. Implementar la aplicación del servidor
 
