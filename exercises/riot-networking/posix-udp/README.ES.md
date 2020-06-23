@@ -64,8 +64,6 @@ Ambas aplicaciones van a correr en instancias de RIOT `native`.
     else {
         printf("Message received: ");
         puts(server_buffer);
-        sendto(server_socket, SERVER_MESSAGE, sizeof(SERVER_MESSAGE), 0,
-               (struct sockaddr *)&src, sizeof(src));
     }
     ```
 
