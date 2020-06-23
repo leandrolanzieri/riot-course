@@ -42,13 +42,13 @@ static int chat_command_handler(int argc, char **argv)
 
     /* Build a new CoAP request */
 
-
     ipv6_addr_t addr;
     sock_udp_ep_t remote;
 
     /* Initialize the remote endpoint */
 
-    return gcoap_req_send(buf, len, &remote, NULL, NULL);
+    /* Send the CoAP request */
+
 }
 
 
