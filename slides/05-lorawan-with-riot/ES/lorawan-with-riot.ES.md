@@ -46,14 +46,10 @@ class: center, middle
   <li>Modulación de espectro disperso (spread spectrum):<br/><br/>&#x21d2; "Chirp Spread Spectrum"<br/><br/></li>
   <li>Robusto al ruido, multipath y efecto Doppler</li>
   </ul></td>
-  <td>.center[
-      <img src="../images/lora-chirp.jpg" alt="" style="width: 200px;"/><br/>
-      <img src="images/lora-css.jpg" alt="" style="width: 280px;"/>
-    ]
 </tr>
 <tr>
   <td><ul>
-        <li>Aumentar el factor de dispersión:
+        <li>Aumentar el factor de dispersión (SF):
         <br/><br/>
             <ul>
                 <li>aumenta el rango (a varios kilómetros)</li>
@@ -63,7 +59,6 @@ class: center, middle
         </li>
     </ul>
   </td>
-  <td><img src="../images/lorawan-datarate-sf.png" alt="" style="width: 300px;"/></td>
 </tr>
 </table>
 
@@ -199,6 +194,9 @@ Implementaciones de código abierto existentes:
 - Loramac-node https://github.com/Lora-net/LoRaMac-node
   &#x21d2; implementación de referencia, utilizada para la certificación de LoRa Alliance
 
+- GNRC LoRaWAN (RIOT)
+  &#x21d2; implementación propia de RIOT
+
 <br>
 
 Soporte de alto nivel para el dispositivo final (generalmente basadas en Loramac-node):
@@ -329,46 +327,45 @@ Muchos operadores de red públicos:
 - Compilar y correr la aplicación provista por RIOT (en `~/riot-course/RIOT`)
 
 ```sh
-make -C tests/pkg_semtech-loramac flash term
+make -C examples/gnrc_lorawan flash term
 ```
 
-- Configurar el dispositivo utilizan el shell de RIOT
+- Obtener el número de la interfaz de red LoRaWAN utilizando el shell de RIOT
 
 ```sh
-> loramac set deveui 0000000000000000
-> loramac set appeui 0000000000000000
-> loramac set appkey 00000000000000000000000000000000
+> ifconfig
 ```
 
-- Unirse a la red utilizando el procedimiento de activación OTAA
+- Configurar el dispositivo
 
 ```sh
-> loramac join otaa
-Join procedure succeeded!
+> ifconfig 4 set deveui 0000000000000000
+> ifconfig 4 set appeui 0000000000000000
+> ifconfig 4 set appkey 00000000000000000000000000000000
+```
+
+- Unirse a la red utilizando el procedimiento de activación OTAA (activado por
+  defecto)
+
+```sh
+> ifconfig 4 otaa
+> ifconfig 4 up
+```
+
+---
+
+- Luego de 7 segundos verificar la activación (`Link: up`)
+
+```sh
+> ifconfig
 ```
 
 - Enviar (y eventualmente recibir) mensajes a la red
 
 ```sh
-> loramac tx HelloWorld!
+> send 4 "Hola mundo!"
 Tx done
 ```
-
----
-
-## Probar TTN con RIOT: práctica (2)
-
-- **Ejercicio:** `~/riot-course/exercises/riot-lorawan/simple`
-
-Seguir el [README del ejercicio](https://github.com/riot-os/riot-course/tree/master/exercises/riot-lorawan/simple)
-
----
-
-## Ejercicio: Enviar datos de un sensor a TTN
-
-- **Ejercicio:** `~/riot-course/exercises/riot-lorawan/sensor`
-
-Seguir el [README del ejercicio](https://github.com/riot-os/riot-course/tree/master/exercises/riot-lorawan/sensor)
 
 ---
 
@@ -415,57 +412,129 @@ https://mydevices.com/cayenne/docs/lora/#lora-the-things-network
 
 ---
 
-## Ejercicio: Integración con Cayenne LPP
+## GNRC LoRaWAN
 
-- **Ejercicio:** `~/riot-course/exercises/riot-lorawan/lpp`
+- Implementación propia de LoRaWAN en RIOT
 
-Seguir el [README del ejercicio](https://github.com/riot-os/riot-course/tree/master/exercises/riot-lorawan/lpp)
+- Clase A, región EU868, versión 1.0.3
 
----
-
-## La API MQTT de TTN
-
-- El protocolo MQTT es del tipo publicación/suscripción
-.center[
-    <img src="../images/pub-sub-model.png" alt="" style="width: 350px;"/><br/>
-]
-
-- Documentación de la API MQTT de TTN<br>
-https://www.thethingsnetwork.org/docs/applications/mqtt/
-
-- Implementación de referencia provista por el proyecto Eclipse Mosquitto<br>
-https://mosquitto.org/
-
-- Eclipse también provee una biblioteca de python: _paho_<br>
-https://www.eclipse.org/paho/
+- Integrado con componentes de GNRC (buffer de paquetes, registros, comunicación
+  asincrónica, etc).
 
 ---
 
-## La API MQTT de TTN
+## Conceptos básicos de GNRC
 
-.center[
-    <img src="../images/overview_application.png" alt="" style="width: 350px;"/><br/>
-]
+- Paquetes son representados a través de un buffer de paquetes (GNRC Pktbuf).
 
----
+- Cada componente de GNRC (`gnrc_ipv6`, `gnrc_udp`, `gnrc_netif`) es un thread
 
-## Ejercicio: Downlink desde una red LoRaWAN
+- Comunicación asincrónica entre threads a través de colas de mensajes
+    - Interfaz única entre componentes (GNRC NetAPI)
 
-- **Ejercicio:** `~/riot-course/exercises/riot-lorawan/downlink`
-
-Seguir el [README del ejercicio](https://github.com/riot-os/riot-course/tree/master/exercises/riot-lorawan/downlink)
+- Un paquete puede ser ser dirigido a un componente en específico o
+  a un grupo de componentes registrados a un tipo de paquete (GNRC Netreg).
 
 ---
 
-## Ejercicio: habilitar bajo consumo
+## GNRC Pktbuf
 
-- **Ejercicio:** `~/riot-course/exercises/riot-lorawan/pm`
+- Un paquete está representado por uno o más "snips" (corte) representados
+  como una lista enlazada
 
-Seguir el [README del ejercicio](https://github.com/riot-os/riot-course/tree/master/exercises/riot-lorawan/pm)
+- Cada "snip" tiene un tipo, un puntero a un buffer y largo.
+
+- Operaciones del buffer de paquetes:
+    - Alocar un snip
+    - Dividir un snips
+    - Eliminar un snip
 
 ---
 
-class: center, middle
+## GNRC Pktbuf
+
+Algunas funciones útiles:
+
+```c
+/* Alocar un paquete (snip) */
+gnrc_pktsnip_t *pkt = gnrc_pktbuf_add(NULL, buffer, 64, GNRC_NETTYPE_LORAWAN);
+
+/* Acceder a la información asociada al snip */
+uint8_t *packet = pkt->data;
+size_t packet_size = pkt->size;
+gnrc_pktsnip_t *next_snip = pkt->next;
+
+/* Dividir un snip. `pkt` apunta el nuevo snip */
+gnrc_pktsnip_t *ipv6_snip = gnrc_pktbuf_mark(pkt, 10, GNRC_NETTYPE_UDP);
+
+/* Liberar un paquete (y todos los snips enlazados) */
+gnrc_pktbuf_release(pkt);
+```
+Documentación:
+https://doc.riot-os.org/group__net__gnrc__pktbuf.html
+
+--- 
+
+## GNRC NetAPI
+
+Contiene funciones para:
+
+- Transmitir paquetes entre components de GNRC
+
+- Configurar un componente de GNRC a través de patrones Get/Set 
+
+---
+
+## GNRC NetAPI
+
+Funciones interesantes para efectos del curso
+
+```c
+/* Delegar envío de un paquete (uplink) a un componente de GNRC */
+gnrc_netapi_send(pid, pkt)
+
+/* Obtener un parámetro de configuración de un componente de GNRC */
+gnrc_netapi_get(netif_pid, NETOPT_CHANNEL, 0, &channel, sizeof(channel));
+
+/* Setear un parámetro de configuración a un componente de GNRC */
+gnrc_netapi_set(netif_pid, NETOPT_ADDRESS, 0, &addr, sizeof(addr));
+```
+
+Documentación
+https://doc.riot-os.org/group__net__gnrc__netapi.html
+
+Listado de opciones:
+https://doc.riot-os.org/netopt_8h.html
+
+---
+
+## GNRC Netreg
+
+- NetAPI permite delegar paquetes a un grupo de componentes (threads) que
+estén registrados a un tipo de paquetes.
+
+```c
+/* Delegar paquete a uno o más thread registrados a paquetes de tipo LoRaWAN */
+gnrc_netapi_dispatch(GNRC_NETTYPE_LORAWAN, demux_ctx, cmd, pkt);
+```
+
+- Para registrar un componente:
+
+```c
+gnrc_netreg_entry_t entry = GNRC_NETREG_ENTRY_INIT_PID(demux_ctx,
+                                                      pid);
+gnrc_netreg_register(GNRC_NETTYPE_LORAWAN, &entry);
+```
+
+---
+
+## Ejercicio: Aplicación Cayenne LPP
+
+- **Ejercicio:** `~/riot-course/exercises/riot-lorawan/lpp-node`
+
+Seguir el [README del ejercicio](https://github.com/riot-os/riot-course/tree/master/exercises/riot-lorawan/lpp-node)
+
+---
 
 # The End
 
